@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>authentification</title>
+        
+    </head>
+    <body>
+        <form th:action="@{/verify-email}" th:object="${emailForm}" method="post">
+            <h1 class="message">MyTutor</h1>
+            <p class="message">We sent you a OTP to verify your email.</p>
+            <p class="message">Please enter the OTP below</p>
+            
+            <input class="otp-box" type="number" id="otp" th:field="*{otp}" placeholder="OTP number" required />
+            <button class="btn submit-btn" type="submit" >Submit</button>
+            <span class="message error-message" th:text="${error}" style="color: red;"></span>
+        </form>
+        <form th:action="@{/resend-otp}" method="post">
+            <button class="btn resend-btn" type="submit">Resend OTP</button>
+        </form>
+    </body>
+
+</html>

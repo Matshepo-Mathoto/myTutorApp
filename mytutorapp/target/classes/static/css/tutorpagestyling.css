@@ -1,0 +1,122 @@
+.tutor li {
+    display: inline;
+}
+
+.course-list {
+    width: 100%;
+    display: flex;
+    border: 1px solid black;
+
+}
+
+.course-list-TA ul {
+    display: flex;
+    margin-top: 20px;
+}
+
+.ta-homepage {
+    margin-left: 15%;
+}
+
+#submitsession {
+    margin-left: 15%;
+}
+
+.ta-btn {
+    background-color: #16A085;
+    width: 100px;
+    height: 40px;
+    color: white;
+    border-radius: 5%;
+    margin: 4px
+}
+
+.course-list-TA button {
+    width: fit-content;
+    font-size: 150%;
+    height: auto;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    background-color: #16A085;
+}
+
+.tutor {
+    margin-left: 8%;
+}
+
+button.course-name {
+    width: fit-content;
+    font-size: 150%;
+    height: auto;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.tutor button {
+    background-color: #16A085;
+    width: 100px;
+    height: 40px;
+    color: white;
+    border-radius: 5%;
+    margin: 4px
+}
+
+button a:link,
+button a:visited,
+button a:active {
+    background-color: #16A085;
+    color: white;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 2% 5% 2% 5%;
+    font-size: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.open-site {
+    background-color: darkgray;
+    font-weight: bold;
+}
+
+.not-open {
+    background-color: lightgray;
+    font-size: 100%;
+}
+
+.event-location {
+    margin-top: 5px;
+}
+
+body {
+    width: 100%;
+}
+
+th {
+    width: auto;
+    min-width: 50px;
+    background-color: white;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #000;
+    /* Add a border to table cells */
+    padding: 8px;
+    /* Add some padding for better appearance */
+}
+
+.tutor span {
+    width: 100%;
+}
+
+textarea {
+    border: solid 2px;
+}

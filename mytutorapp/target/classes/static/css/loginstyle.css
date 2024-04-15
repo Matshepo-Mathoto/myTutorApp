@@ -1,0 +1,77 @@
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(255, 251, 251);
+}
+.heading
+{
+    background-color: aqua;
+    height: 50px;
+    top: 0%;
+    display: block;
+    text-align: center;
+    font-weight: 700;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 34px;
+
+}
+.img-container
+{
+    width: 700px;
+    height: auto;
+    border-radius: 40px;
+    display: inline-block;
+    position: absolute;
+    
+}
+.profile-image
+{
+    width: 500px;
+    height: auto;
+
+}
+.login-area
+{
+    margin: 100px 5px 20px 900px;
+    display: inline-block;
+    position: relative;
+}
+.form-label
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+.form-text
+{
+    padding: 5px 0px 5px 5px;
+    margin: 20px 0px 0px 0px;
+    width: 300px;
+    border-radius: 5px;
+}
+.login-btn, .register-btn
+{
+    margin: 10px 5px 10px 0px;
+    width: 150px;
+    height: 25px;
+    border-radius: 10px;
+    
+    text-align: center;
+}
+.forgot-password
+{
+    text-align: center;
+    margin: 5px 5px 10px 400px;
+    
+}
+.sign-in
+{
+    text-align: center;
+    margin-right: 150px;
+    margin-bottom: 10px;
+    font-family: "Caveat", Arial, Helvetica, sans-serif;
+    font-size: 50px;
+}
+.user-details
+{
+    font-family: 'Times New Roman', Times, serif;
+}

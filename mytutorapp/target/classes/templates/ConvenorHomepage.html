@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Convenor Homepage</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/formStyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/adminStyle.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/tutorpagestyling.css}">
+ <!--the change to commiat-->
+    <script th:src="@{/javascript/topnavscript.js}"></script>
+    <script th:src="@{/javascript/addtimeslots.js}"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+    <script th:src="@{/javascript/calendarscript.js}"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <header style="height: 60px; width:100%; display:block">
+        <div class="topnav">
+            <a class="home" href="/ta/homepage"><i class="fa fa-home"></i></a>
+            <a class="active" href="/ta/homepage">Convenor Homepage</a>
+
+            <div id="myLinks">
+                <a href="/user/change/details">Profile</a>
+                <a href="/user/compose/email">Send Email</a>
+                <a href="/ta/homepage">Teaching Assistant Homepage</a>
+                <a id="logoutLink" href="#" onclick="submitLogout()">Logout</a>
+                <form id="logoutForm" th:action="@{/logout}" method="post">
+                    <input type="hidden" />
+                </form>
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+                <span th:text="${session.myUsername}"></span>
+            </a>
+        </div>
+    </header>
+    <h1>Convenor Dashboard</h1>
+    

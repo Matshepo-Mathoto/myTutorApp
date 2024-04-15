@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>MyTutorApp user-login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/elementstyling.css}">
+    <link href='https://fonts.googleapis.com/css?family=Caveat' rel='stylesheet'>
+</head>
+
+<body>
+    <header style="width:100%; top:0">
+        <h2 class="heading important">MyTutorApp </h2>
+        <h3 class="SignIn">Sign in</h3>
+    </header>
+
+    <div class="borderline">
+        <fieldset class="loginfield">
+            <div class="form-group" id="formInput">
+                <th:block th:if="${param.error}">
+                    <p class="error">Incorrect username or password</p>
+                </th:block>
+                <th:block th:if="${param.logout}">
+                    <p class="result">Logout Sucessfully</p>
+                </th:block>
+                <div class="form">
+                    <form th:action="@{/processLogin}" th:object="${LoginForm}" method="post">
+                        <div class="login">
+                            <label class="form-label" for="username">Username:</label>
+                            <input class="form-text" type="text" id="username" th:field="*{username}"
+                                placeholder="username" title="Your staffID or student number" required />
+                        </div>
+                        <div class="login">
+                            <label class="form-label" for="password">Password:</label>
+                            <input class="form-text" type="password" id="password" th:field="*{password}"
+                                placeholder="password" title="Your Login password" required />
+                        </div>
+                        <div class="container">
+                            <button class="login-button" type="submit">LOGIN</button>
+
+                            <button type="button" class="register-button"><a href="/newUser"
+                                    style="text-decoration: none; color:white"> REGISTER</a></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="container">
+                    <span class="link" style="margin: 20px;"><a href="/reset/password">Reset Password</a></span>
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
+
+</body>
+
+</html>

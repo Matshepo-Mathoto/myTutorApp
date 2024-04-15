@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!--the change to commita-->
+    <title>Manage Applicants</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/formstyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navigation.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/viewApplicants.css}">
+    <script th:src="@{/javascript/topnavscript.js}"></script>
+</head>
+
+<body>
+    <header style="height: 60px; width:100%; display:block">
+        <nav class="topnav">
+            <h1 class=" title"><strong>MyTutorApp</strong></h1>
+            <div class="dropdown">
+                <button class="icon1" onclick="show_hide()">
+                    <div class="profile-area">
+                        <span th:text="${session.myUsername}" class="user"></span>
+                    </div>
+                    <div class="profile-area">
+                        <img th:src="@{/images/login.png}" class="profile">
+                    </div>
+
+                </button>
+                <div id="list-items">
+                    <a id="logoutLink" href="#" onclick="submitLogout()">Logout</a>
+                    <form id="logoutForm" th:action="@{/logout}" method="post">
+                        <input type="hidden" />
+                    </form>
+                    <a href="/user/change/details">Change Details</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <nav class="select">
+            <div class="toggle"><a href="#"><ion-icon name="menu-outline"></ion-icon></a></div>
+            <ul class="menu">
+                <li><a href="/admin/homepage" class="item"><i class="fa fa-home"></i></a></li>
+                <li><a href="/admin/manage/course" class="item">Manage Courses</a></li>
+                <li><a href="/admin/manage/users" class="item">Manage Users</a></li>
+                <li><a href="/admin/create/post" class="item"> Create Posts</a></li>
+                <li><a href="/admin/manage/applicants" class="item">Manage Applicants</a></li>
+                <li><a href="/admin/view/applicant" class="item">View Applicants</a></li>
+                <li><a href="/admin/view/tables" class="item">View Tables</a></li>
+                <li><a href="/admin/view/reports" class="item">System Reports</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div>
+        <h2 class="heading-important">Manage Applicants</h2>
+    </div>
+    <div class="group">
+        <span class="error-post" id="errorMessage" th:text="${session.errorMessage}"></span>
+        <span class="result-post" id="results" th:text="${session.resultMessage}"></span>
+    </div>
+    <div class="app-important">
+        <div>
+            <form id="applicationPostNames" th:action="@{/admin/request/applicants/usernames}" method="post">
+                <div class="group">
+                    <input class="form-text" type="text" id="postNamesList" list="postApplicationList"
+                        name="selectedPost" th:value="${session.selectedPost}" placeholder="Select posting" required>
+                    <datalist id="postApplicationList">
+                        <option th:each="appName: ${applicationNames}" th:value="${appName}" th:text="${appName}">
+                        </option>
+                    </datalist>
+                </div>
+                <div class="group">
+                    <label class="form-label" for="applicantsToUpdate"> Select Statuses to search by:</label>
+                    <br>
+                    <select class="form-text-app" id="getByStatuses" name="getByStatuses"
+                        placeholder="Select applicants" multiple required>
+                        <option th:each="status: ${applicationStatuses}" th:value="${status}" th:text="${status}"
+                            th:selected="${selectedStatuses.contains(status)}">
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn" type="submit">OPEN</button>
+                </div>
+            </form>
+        </div>
+        <div class="group"
+            th:if="${session.manage_app_view == 'select_applicants' || session.manage_app_view == 'update_status'}">
+            <form id="applicantUserNames" th:action="@{/admin/display/selected/applicants}" method="post">
+                <label class="form-label" for="applicantsToUpdate"> Select Applicants:</label>
+                <br>
+                <select class="form-text-app" id="applicantsToUpdate" name="applicantsToUpdate"
+                    placeholder="Select applicants" multiple required>
+                    <option th:each="applicantName: ${applicantsNames}" th:value="${applicantName}"
+                        th:text="${applicantName}">
+                    </option>
+                </select>
+                <button class="btn" type="submit">Display</button>
+            </form>
+        </div>
+    </div>
+    <div class="app-important" th:if="${session.manage_app_view == 'update_status'}">
+        <div class="group borderline">
+            <ol>
+                <li th:each="applicantInfo: ${applicantsData}">
+                    <pre th:text="${applicantInfo}"></pre>
+                </li>
+            </ol>
+        </div>
+        <form id="applicantUpdate" th:action="@{/admin/update/applicants/status}" method="post">
+            <div class="group">
+                <label class="form-label">New Application Status:</label>
+                <input class="form-text" type="text" id="statuses" list="statusList" name="selectedStatus"
+                    th:value="${lastSelectedStatus}" placeholder="applicant status" required>
+                <datalist id="statusList">
+                    <option th:each="status: ${applicationStatuses}" th:value="${status}" th:text="${status}"></option>
+                </datalist>
+            </div>
+            <div class="container">
+                <button class="btn" type="submit">Update Statuses</button>
+                <button class="btn" style="width: fit-content;"><a href="/admin/download/shortlist"> Download
+                        Usernames</a></button>
+                <button class="btn"><a href="/admin/update/controls/close"> Close</a></button>
+            </div>
+        </form>
+        <form id="delete_form" th:action="@{/admin/delete/applicants}" method="post">
+            <button type="button" class="btn" onclick="confirmDelete()">Delete Applicants</button>
+        </form>
+    </div>
+</body>
+
+</html>

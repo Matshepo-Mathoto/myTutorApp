@@ -1,0 +1,261 @@
+@media screen and (max-width: 992px) {
+    body {
+      background-color: whitesmoke;
+    }
+  }
+  
+  /* On screens that are 600px or less, set the background color to olive */
+  @media screen and (max-width: 600px) {
+    body {
+      background-color: skyblue;
+    }
+}
+/*body {
+    background-color: whitesmoke;
+    width: 100%;
+    height: auto;
+    display: inline-flexbox;
+
+}*/
+
+.heading {
+    text-align: center;
+    text-decoration: underline;
+    padding-left: 50px;
+    color: teal;
+}
+
+.display {
+    justify-self: center;
+    display: inline-block;
+    height: auto;
+    width: 70%;
+    max-width: 80%;
+    margin: 5% 10%;
+    box-sizing: content-box;
+}
+
+.image-container {
+    justify-content: center;
+    padding: 5% 2%;
+}
+
+.form-group {
+    justify-content: space-evenly;
+    display: inline;
+    max-width: 50%;
+}
+
+.form {
+    display: block;
+    width: 100%;
+    /*border: 2px solid #16A085;*/
+}
+
+.long {
+    display: inline-block;
+    text-align: left;
+    padding: 10px;
+    width: 100%;
+    border: 2px solid black;
+}
+
+
+p span, p ol {
+    width: 100%;
+    display: inline-block;
+    font-size: 100%;
+    font-style: italic;
+    font-weight: normal;
+}
+
+p {
+    margin: 0px;
+    font-weight: bold;
+}
+
+.group {
+    padding: 5px 10px 5px 10px;
+    margin: 10px;
+    display: block;
+    width: 100%;
+}
+
+.error {
+    color: red;
+    padding-left: 5%;
+    font-style: italic;
+}
+
+textarea {
+    width: 90%;
+    height: 100%;
+    min-height: 200px;
+    overflow: scroll;
+    resize: both;
+    padding: 10px;
+    font-size: 1pc;
+}
+
+textarea::-webkit-resizer {
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    border: 1px solid black;
+}
+
+.result {
+    color: blue;
+    padding-left: 5%;
+    font-style: italic;
+}
+
+.link {
+    font-size: 100%;
+    width: 400px;
+    margin-block: 20px;
+
+}
+
+.centre {
+    margin-left: 20%;
+    margin-right: 40%;
+}
+
+a:link button {
+    text-decoration: none;
+}
+
+
+.important {
+    font-weight: bold;
+    font-size: 2pc;
+}
+
+.form-label {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1pc;
+    text-align: left;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.form-text {
+    width: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 100%;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 8px 0;
+    display: inline-block;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.form-select {
+    width: 60%;
+    height: 50px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 100%;
+    color: teal;
+    size: 20%;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.down {
+    margin-top: 90%;
+    margin-left: 30%;
+    margin-bottom: 5%;
+}
+
+select {
+    font-size: 20px;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=number] {
+    font-size: 100%;
+    color: black;
+}
+
+.controls {
+    margin: 2%;
+    width: 100%;
+    max-width: 90%;
+    max-height: fit-content;
+    display: inline-block;
+    justify-content: space-between;
+    block-size: auto;
+    
+}
+
+.link .btn {
+    text-decoration: none;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+button:fullscreen {
+    color: green;
+}
+
+button a:link,
+button a:visited,
+button a:active {
+    background-color: #16A085;
+    color: white;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 2% 2% 2% 2%;
+    font-size: 100%;
+    text-align: left;
+    width: fit-content;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a button{
+    width: 20%;
+    font-size: 100%;
+    background-color: #16A085;
+    display: inline-block;
+    margin: 2px 5px;
+}
+
+a:hover {
+    background-color: cornflowerblue;
+}
+
+.btn-link {
+    background-color: #16A085;
+    border: 2px solid green;
+    text-align: center;
+    padding: 2% 3% 2% 3%;
+    font-size: 70%;
+    border-radius: 10px;
+    display: inline-block;
+    width: fit-content;
+    max-width: 30%;
+    min-height: 100%;
+}
+
+.btn {
+    display: inline-block;
+    width: fit-content;
+    max-width: 40%;
+    margin: 2%;
+    font-size: 100%;
+    font-weight: 600;
+    padding: 2%;
+    background-color: #16A085;
+    border: 2px solid green;
+    text-align: center;
+    color: white;
+    text-decoration: solid;
+    border-radius: 10px;
+}

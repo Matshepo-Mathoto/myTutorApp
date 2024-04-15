@@ -1,0 +1,15 @@
+In-progress
+Submitted
+Applied
+Received
+Incomplete
+Interviewing
+Evaluation
+Unsuccessful
+Shortlisted
+Successful
+Hired
+Allocated1
+Allocated2
+Allocated3
+Missing documents

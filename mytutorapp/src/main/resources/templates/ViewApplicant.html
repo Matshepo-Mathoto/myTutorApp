@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Applicant Shorlisting</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/formstyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navigation.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/viewApplicants.css}">
+    <script th:src="@{/javascript/topnavscript.js}"></script>
+</head>
+
+<body>
+    <header style="height: 60px; width:100%; display:block">
+        <nav class="topnav">
+            <h1 class=" title"><strong>MyTutorApp</strong></h1>
+            <div class="dropdown">
+                <button class="icon1" onclick="show_hide()">
+                    <div class="profile-area">
+                        <span th:text="${session.myUsername}" class="user"></span>
+                    </div>
+                    <div class="profile-area">
+                        <img th:src="@{/images/login.png}" class="profile">
+                    </div>
+
+                </button>
+                <div id="list-items">
+                    <a id="logoutLink" href="#" onclick="submitLogout()">Logout</a>
+                    <form id="logoutForm" th:action="@{/logout}" method="post">
+                        <input type="hidden" />
+                    </form>
+                    <a href="/user/change/details">Change Details</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <nav class="select">
+            <div class="toggle"><a href="#"><ion-icon name="menu-outline"></ion-icon></a></div>
+            <ul class="menu">
+                <li><a href="/admin/homepage" class="item"><i class="fa fa-home"></i></a></li>
+                <li><a href="/admin/manage/course" class="item">Manage Courses</a></li>
+                <li><a href="/admin/manage/users" class="item">Manage Users</a></li>
+                <li><a href="/admin/create/post" class="item"> Create Posts</a></li>
+                <li><a href="/admin/manage/applicants" class="item">Manage Applicants</a></li>
+                <li><a href="/admin/view/applicant" class="item">View Applicants</a></li>
+                <li><a href="/admin/view/tables" class="item">View Tables</a></li>
+                <li><a href="/admin/view/reports" class="item">System Reports</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div>
+        <h2 class="heading-important">Viewing Applicants</h2>
+    </div>
+    <div class="create-user" style="display: block">
+        <div>
+            <form id="applicationPostNames" th:action="@{/admin/getApplicantsList}" method="post">
+                <div class="group">
+                    <input class="form-text" type="text" id="postNamesList" list="postApplicationList"
+                        th:value="${session.postIdentifier}" name="selectedPost" placeholder="Select posting" required>
+                    <datalist id="postApplicationList">
+                        <option th:each="appName: ${applicationNames}" th:value="${appName}" th:text="${appName}">
+                        </option>
+                    </datalist>
+                </div>
+                <div>
+                    <button class="btn" type="submit">OPEN</button>
+                </div>
+
+            </form>
+        </div>
+        <div th:unless="${session.postIdentifier == null}">
+            <form id="applicantUserNames" th:action="@{/admin/getApplicantData}" method="post">
+                <div class="group">
+                    <input class="form-text" type="text" id="usernamesList" list="ApplicantsList"
+                        name="selectedApplicant" placeholder="Select applicant" required>
+                    <datalist id="ApplicantsList">
+                        <option th:each="applicantName: ${applicantsNames}" th:value="${applicantName}"
+                            th:text="${applicantName}"></option>
+                    </datalist>
+                </div>
+                <div>
+                    <button class="btn" type="submit">DISPLAY</button>
+                </div>
+            </form>
+        </div>
+        <div id="controls" class="btn-group" style="width: 100%" th:unless="${session.postIdentifier == null}">
+            <button type="button" style="width: 20%"><a href="/admin/firstApplicant"> FIRST</a></button>
+            <button type="button" style="width: 20%"><a href="/admin/priorApplicant"> PRIOR</a></button>
+            <button type="button" style="width: 20%"><a href="/admin/nextApplicant"> NEXT</a></button>
+            <button type="button" style="width: 20%"><a href="/admin/lastApplicant"> LAST</a></button>
+        </div>
+        <div class="group" th:unless="${session.current_applicant == null}">
+            <form id="applicantUpdate" th:action="@{/admin/updateApplicant}" method="post">
+                <div class="applicant-change-space">
+                    <h3>Applicant Details</h3>
+                    <p>Applicant ID: <span th:text="${session.current_applicant}"></span></p>
+                    <p>Username: <span th:text="${applicant.username}"></span></p>
+                    <p>First Name: <span th:text="${applicant.firstName}"></span></p>
+                    <p>Last Name: <span th:text="${applicant.lastName}"></span></p>
+                    <p>Contact Number: <span th:text="${applicant.contactNumber}"></span></p>
+                    <p>Email Address: <span th:text="${applicant.emailAddress}"></span></p>
+                    <p>Year of Study: <span th:text="${applicant.yearOfStudy}"></span></p>
+                    <p>Study Level: <span th:text="${applicant.studyLevel}"></span></p>
+                    <p>Qualifications or Majors: <span th:text="${applicant.qualifications}"></span></p>
+                    <p>Applied to Post: <span th:text="${applicant.postIdentifier}"></span></p>
+                    <p>Application Status: <span th:text="${applicant.applicationStatus}"></span></p>
+                    <p>Course Marks:
+                    <div class="group">
+                        <ul>
+                            <li th:each="mark: ${applicant.applicantMarks}" th:text="${mark}"></li>
+                        </ul>
+                    </div>
+                    </p>
+                    <p>Uploaded Documents:
+                    <div class="group">
+                        <ul>
+                            <li th:each="doc: ${applicant.applicationDocs}">
+                                <p>Document Type: <span th:text="${doc[1]}"></span></p>
+                                <p>Document Name: <span th:text="${doc[0]}"></span></p>
+                                <input type="hidden" name="fileDir" th:value="${doc[2]}" />
+                                <input type="hidden" name="filename" th:value="${doc[0]}" />
+                                <p><a th:href="${'/user/file/download/'+ doc[1] + '/' + doc[0]}">Download</a></p>
+                            </li>
+                        </ul>
+                    </div>
+                    </p>
+                </div>
+                <div class="group">
+                    <label class="form-label">Application Status</label>
+                    <input class="form-text" type="text" id="statuses" list="statusList" name="selectedStatus"
+                        th:value="${applicant.applicationStatus}" placeholder="applicant status" required>
+                    <datalist id="statusList">
+                        <option th:each="status: ${applicationStatuses}" th:value="${status}" th:text="${status}">
+                        </option>
+                    </datalist>
+                </div>
+                <div>
+                    <button class="btn" type="submit">Update</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--the change to commita-->
+
+</body>
+
+</html>

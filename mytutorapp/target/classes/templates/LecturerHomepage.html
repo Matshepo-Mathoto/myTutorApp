@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Lecturer Homepage</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/elementstyling.css}">
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/formstyle.css}">-->
+</head>
+
+<body>
+     <!--the change to commita-->
+    <h1>Lecturer Homepage</h1>
+    <h3 th:text="${role + ' Homepage user: ' + username}"></h3>
+    <button><a href="/user/change/details">Profile</a></button>
+    <form id="logoutForm" th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</body>

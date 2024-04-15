@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/elementStyling.css}">-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/formStyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/adminStyle.css}">
+
+    <script th:src="@{/javascript/topnavscript.js}"></script>
+    <script>
+        function toggleShow() {
+            var x = document.getElementById("updateInfo");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <header style="height: 60px; width:100%; display:block">
+        <div class="topnav">
+            <a class="home" th:href="${'/' + rolemap + '/homepage'}"><i class="fa fa-home"></i></a>
+            <a class="active" href="/user/change/details">Profile</a>
+
+            <div id="myLinks">
+                <a id="logoutLink" href="#" onclick="submitLogout()">Logout</a>
+                <form id="logoutForm" th:action="@{/logout}" method="post">
+                    <input type="hidden" />
+                </form>
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+                <span th:text="${session.myUsername}"></span>
+            </a>
+
+        </div>
+    </header>
+    <div>
+        <h2>Profile Details</h2>
+        <p>Username: <span th:text="${person.username}"></span></p>
+        <p>Title: <span th:text="${person.title}"></span></p>
+        <p>First Name: <span th:text="${person.firstName}"></span></p>
+        <p>Last Name: <span th:text="${person.lastName}"></span></p>
+        <p>Contact Number: <span th:text="${person.contactNumber}"></span></p>
+        <p>Email Address: <span th:text="${person.emailAddress}"></span></p>
+    </div>
+    <div th:if="${rolemap == 'tutor' || rolemap == 'ta'}">
+        <p>User role: <span th:text="${person.role}"></span></p>
+        <p>Year of Study: <span th:text="${person.yearOfStudy}"></span></p>
+        <p>Study Level: <span th:text="${person.studyLevel}"></span></p>
+        <p>Majors: <span th:text="${person.majors}"></span></p>
+        <p>Faculty: <span th:text="${person.faculty}"></span></p>
+    </div>
+    <div th:if="${rolemap == 'admin'}">
+        <p>Department: <span th:text="${person.department}"></span></p>
+        <p>Faculty: <span th:text="${person.faculty}"></span></p>
+        <p>Admin Role: <span th:text="${person.AdminRole}"></span></p>
+    </div>
+    <div th:if="${rolemap == 'lecturer' || rolemap == 'convenor'}">
+        <p>Department: <span th:text="${person.department}"></span></p>
+        <p>Lecturer Role: <span th:text="${person.role}"></span></p>
+    </div>
+    <div>
+        <button class="btn" onclick="toggleShow()">Change Details</button>
+    </div>
+    <div id="updateInfo" style="display: none;">
+        <fieldset>
+            <p>Enter the details you want to change only</p>
+            <legend>Profile Info</legend>
+            <form th:action="@{/user/updateProfile}" th:object="${person}" method="post">
+                <div>
+                    <label class="form-label" for="title">Title:</label>
+                    <input class="form-text" type="text" id="title" th:field="*{title}" placeholder="Mr/Ms" />
+                </div>
+                <div>
+                    <br>
+                    <label class="form-label" for="firstName">Name:</label>
+                    <input class="form-text" type="text" id="firstName" th:field="*{firstName}" name="firstName"
+                        placeholder="name">
+                </div>
+                <div>
+                    <br>
+                    <label class="form-label" for="lastName">Surname:</label>
+                    <input class="form-text" type="text" id="lastName" th:field="*{lastName}" name="lastName"
+                        placeholder="surname">
+                </div>
+                <div>
+                    <br>
+                    <label class="form-label" for="emailAddress">Email Address:</label>
+                    <input class="form-text" type="text" id="emailAddress" th:field="*{emailAddress}"
+                        name="emailAddress" placeholder="user@domain" value="">
+                </div>
+                <div>
+                    <br>
+                    <label class="form-label" for="contactNo">Contact number:</label>
+                    <input class="form-text" type="number" id="contactNo" th:field="*{contactNumber}"
+                        name="contactNumber" placeholder="+2712345678">
+                </div>
+                <br>
+                <button style="margin:10px 20%" class="btn" type="submit" name=saveInfoButton id="button1">Update
+                    Profile
+                    Info</button>
+            </form>
+        </fieldset>
+        <fieldset th:if="${rolemap == 'tutor' || rolemap == 'ta'}">
+            <legend>Student Info</legend>
+            <form th:action="@{/user/updateStudent}" th:object="${person}" method="post">
+                <div>
+                    <label class="form-label" for="studyLevel">Study Level:</label>
+                    <select class="form-text" id="studyLevel" th:field="*{studyLevel}" name="studyLevel">
+                        <option value="undergraduate">Undergraduate</option>
+                        <option value="postgraduate">Postgraduate</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label" for="yearOfStudy">Year of Study:</label>
+                    <input class="form-text" type="number" id="yearOfStudy" th:field="*{yearOfStudy}"
+                        placeholder="current year studying" />
+                </div>
+                <div>
+                    <label class="form-label" for="major">Major(s):</label>
+                    <input class="form-text" type="text" id="major" th:field="*{majors}"
+                        placeholder="your specialisations" />
+                </div>
+                <div>
+                    <label class="form-label" for="faculty">Faculty:</label>
+                    <input class="form-text" type="text" id="faculty" th:field="*{faculty}"
+                        placeholder="your faculty" />
+                </div>
+                <button style="margin:10px 20%" class="btn" type="submit">Update Student Details</button>
+            </form>
+        </fieldset>
+
+        <fieldset th:if="${rolemap == 'admin'}">
+            <legend>Admin Info</legend>
+            <form th:action="@{/user/updateAdmin}" th:object="${person}" method="post">
+                <div>
+                    <label class="form-label" for="department">Department:</label>
+                    <input class="form-text" type="text" id="department" th:field="*{department}"
+                        placeholder="department working under" />
+                </div>
+                <div>
+                    <label class="form-label" for="faculty">Faculty:</label>
+                    <input class="form-text" type="text" id="faculty" th:field="*{faculty}"
+                        placeholder="faculty working under" />
+                </div>
+                <div>
+                    <label class="form-label" for="adminRole">Admin Role:</label>
+                    <input class="form-text" type="text" id="adminRole" th:field="*{adminRole}"
+                        placeholder="your admin position" />
+                </div>
+                <button style="margin:10px 20%" class="btn" type="submit">Update Admin Details</button>
+            </form>
+        </fieldset>
+
+        <fieldset th:if="${rolemap == 'lecturer' || rolemap == 'convenor'}">
+            <legend>Lecturer & Convenor Info</legend>
+            <form th:action="@{/user/updateLecturer}" th:object="${person}" method="post">
+                <div>
+                    <label class="form-label" for="department">Department:</label>
+                    <input class="form-text" type="text" id="department" th:field="*{department}"
+                        placeholder="department working under" />
+                </div>
+                <button style="margin:10px 20%" class="btn" type="submit">Update Lecturer Details</button>
+            </form>
+        </fieldset>
+    </div>
+
+
+</body>
+
+</html>

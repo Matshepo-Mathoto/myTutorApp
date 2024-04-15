@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Register</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}">
+        
+        
+            
+    </head>
+    <body>
+         <!--the change to commita-->
+        <form th:action="@{/newUser}" th:object="${newUserForm}" method="post">
+            <div class="form-boundary">
+                <div>
+                    <p class="registration">Registration Form</p>
+            
+                    <span th:text="${resultString}" style="color: red; margin-left: 32%;"></span>
+                </div>
+                
+                <div class="entire-form">
+                    <div class="left">
+                        
+            
+                        <section>
+                            <select class="role" id="role" th:field="*{role}">
+                                <option value="select">Select your role</option>
+                                <option value="tutor">Tutor</option>
+                                <option value="ta">Teaching Assistant</option>
+                            </select>    
+                        </section>
+                        <section>
+                            <label for="title">Title:</label>
+                            <input class="text-box" type="text" id="title" th:field="*{title}" placeholder="eg. Dr" />
+                        </section>
+                        
+                        <section>
+                            <label for="firstName">First Name:</label>
+                            <input class="text-box" type="text" id="name" th:field="*{firstName}" required/>   
+                        </section>
+                        <section>
+                            <label for="lastName">Last Name:</label>
+                            <input class="text-box" type="text" id="surname" th:field="*{lastName}"  required />    
+                        </section>
+                        <section>
+                            <label for="email">Email Address:</label>
+                            <input class="text-box" type="email" id="email" th:field="*{emailAddress}"  required/>    
+                        </section>
+                        <section>
+                            <label for="username">Username:</label>
+                            <input class="text-box" type="text" id="username" th:field="*{username}"  required/>    
+                        </section>
+                        <section>
+                            <label for="password">Password:</label>
+                            <input class="text-box" type="password" id="password" name="password" oninput="validatePassword()" required/>    
+                        </section>
+                        <section>
+                            <label for="confirmPassword">Confirm Password:</label>
+                            <input class="text-box" type="password" id="confirmPassword" name="confirmPassword" oninput="validatePassword()" required />
+                            <div id="password-error" style="color: red;"></div>    
+                        </section>
+                    </div>
+    
+                    <div class="right">
+    
+                        <section>
+                            <label for="contactNumber">CellPhone Number:</label>
+                            <input class="text-box" type="text" id="cellphone" th:field="*{contactNumber}" />    
+                        </section>
+                        <section>
+                            
+                            <select class="study-level" id="studyLevel" th:field="*{studyLevel}" name="studyLevel">
+                                <option value="select">Select your Level of Study</option>
+                                <option value="undergraduate">Undergraduate</option>
+                                <option value="postgraduate">Postgraduate</option>
+                            </select>
+                        </section>
+                        <section>
+                            <label for="yearOfStudy">Current year of study:</label>
+                            <input class="text-box" type="number" title="Year of Study"  th:field="*{yearOfStudy}" placeholder="eg.1" />
+                        </section>
+                        <section>
+                            <label for="majors">Majors:</label>
+                            <input class="text-box" type="text" id="major" th:field="*{majors}" />
+                        </section>
+                        <section>
+                            <label for="faculty">Faculty:</label>
+                            <input class="text-box" type="text" id="faculty" th:field="*{faculty}" />
+                        </section>
+                        <section class="bottom">
+                            <button class="submit-button" type="submit">Sign me up</button>
+                        </section>
+                    </div>
+                    
+                </div>
+            </div>
+            
+             
+        </form>
+        <script th:inline="javascript">
+            function validatePassword() 
+            {
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirmPassword").value;
+                const errorDiv = document.getElementById("password-error");
+
+                if (password === confirmPassword) {
+                    errorDiv.textContent = "";
+                } else {
+                    errorDiv.textContent = "Passwords do not match.";
+                }
+            }
+
+        </script>
+
+    </body>
+
+</html>

@@ -1,0 +1,161 @@
+body{
+    margin: 0;
+    padding: 0;
+    height:100vh;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/*header{
+    width:100%;
+    background: cyan;
+}*/
+.title{
+    text-align: center;
+    font-size: large;
+    top: 200px;
+}
+header ul{
+    display: flex;
+    justify-content: flex-end;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+header ul li{
+    list-style: none;
+    position: relative;
+    padding: 10px 0;
+    transition: 0.5s;
+    box-sizing: border-box;
+    border-right: 1px solid rgba(255,255,255,.2);
+ }
+ header ul li:hover
+ {
+    background-color: #16a085;
+ }
+ header ul li:last-child
+ {
+    border-right: none;
+ }
+ header ul li a{
+    text-decoration: none;
+    padding: 0 20px;
+    color:#fff;
+ }
+ header ul li a .fa{
+    position: relative;
+    width: 60px;
+    height:28px;
+    top:2px;
+    font-size: 20px;
+    text-align:center;
+ }
+header ul li ul{
+    position: absolute;
+    top:30px;
+    left: 0;
+    background: cyan;
+    display: block;
+    width: 200px;
+    transition: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+}
+header ul li:hover ul{
+    opacity: 1;
+    visibility: visible;
+}
+header ul li ul li{
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,.2);
+}
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border:none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+nav{
+    position: absolute;
+    top: 200px;
+    bottom: 0;
+    height: 100%;
+    background: #ffff;
+    left: 0;
+    width: 90px;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+
+}
+
+body nav  ul li a{
+    position: relative;
+    color: rgb(85,83,83);
+    font-size: 14px;
+    display: table;
+    width: 300px;
+    padding: 10px;
+}
+
+body nav  ul li a .fa{
+    position: relative;
+    width: 70px;
+    height:40px;
+    top:14px;
+    font-size: 20px;
+    text-align: center;
+}
+.nav-item{
+    position: relative;
+    top:12px;
+    margin-left: 10px;
+
+}
+
+body nav  ul li a:hover{
+    background-color: grey;
+}
+nav:hover{
+    width:280px;
+    transition: all 0.5s ease;
+}
+
+.logo{
+    text-align: center;
+    display: flex;
+    transition: all 0.5s ease;
+    margin: 10px 0 0 10px;
+}
+
+.logo span{
+    font-weight: bold;
+    padding-left: 15px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+body div a{
+    position: relative;
+    background-color: #16A805;
+    border: none;
+    color:black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    margin: auto;
+    left:0;
+    right:0;
+    top: 60px;
+    bottom: 0;
+    cursor: pointer;
+}
+
+body div a:hover{
+    background-color:lightgreen;
+}
+

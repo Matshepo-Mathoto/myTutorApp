@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Manual - MyTutorApp</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 20px;
+            padding: 0;
+            color: black;
+            background-color: whitesmoke;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-align: center;
+            color: darkcyan;
+        }
+
+        h2,
+        h3 {
+            color: darkgreen;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 8px;
+            text-decoration: underline;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+            /*text-align: center;*/
+            font-style: italic;
+            font-weight: normal;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .subsection {
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+
+        ol {
+            counter-reset: item;
+        }
+
+        li {
+            display: block;
+            color: black;
+        }
+
+        li:before {
+            content: counters(item, ".") ". ";
+            counter-increment: item;
+        }
+    </style>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var requested = document.getElementById("open_section").value;
+            var helpSection = document.getElementById(requested);
+
+
+            if (helpSection) {
+                helpSection.scrollIntoView({ behavior: "smooth" }); // You can use "auto" for immediate scroll
+            }
+        });
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <h1>User Manual - MyTutorApp</h1>
+    </header>
+    <span th:if="${open_section != null}">
+        <input type="hidden" name="open_section" id="open_section" th:value="${open_section}" />
+    </span>
+    <section class="section">
+        <h2>Table of Contents</h2>
+        <ol>
+            <li><a href="#about">About MyTutorApp</a></li>
+            <li><a href="#login">Login</a></li>
+            <li><a href="#reset_password">Reset Password</a></li>
+            <li><a href="#user_profile">Update Profile</a></li>
+            <li><a href="#registration">Tutor & TA Registration</a></li>
+            <li><a href="#applications">Applications</a>
+                <ol>
+                    <li><a href="#make_application">Tutor & TA Applications</a></li>
+                    <li><a href="#check_application">Check Application</a></li>
+                    <li><a href="#upload_app_documents">Uploading Documents</a></li>
+                    <li><a href="#register_applicant">Register Successful Applicant</a></li>
+                </ol>
+            </li>
+            <li><a href="#tutor_homepage">Navigating Tutor Homepage</a>
+                <ol>
+                    <li><a href="#tutor_application">Sign-up</a></li>
+                    <li><a href="#check_application">Check Application</a></li>
+                    <li><a href="#upload_app_documents">Uploading Documents</a></li>
+                    <li><a href="#register_applicant">Register Successful Applicant</a></li>
+                </ol>
+            </li>
+            <li><a href="#ta_homepage">Navigating TA Homepage</a>
+                <ol>
+                    <li><a href="#ta_sessionlogs">Session logs</a></li>
+                    <li><a href="#ta_activities">Activities</a></li>
+                    <li><a href="#ta_activity_sessions">Activity Sessions</a></li>
+                    <li><a href="#ta_sectioninfo">Section Info</a></li>
+                </ol>
+            </li>
+            <li><a href="#admin_homepage">Navigating Admin Homepage</a>
+                <ol>
+                    <li><a href="#admin_courses">Manage Courses</a></li>
+                    <li><a href="#admin_users">Manage Users</a></li>
+                    <li><a href="#admin_posts">Create Posts</a></li>
+                    <li><a href="#admin_applicants">Manage Applicants</a></li>
+                    <li><a href="#admin_view_applicants">View Applicants</a></li>
+                    <li><a href="#admin_tables">View Tables</a></li>
+                    <li><a href="#admin_reports">View Reports</a></li>
+                </ol>
+            </li>
+        </ol>
+        <li><a href="#logout">Logout</a></li>
+        <li><a href="#clear">Clear Session</a></li>
+    </section>
+
+    <section class="section" id="about">
+        <h2>About MyTutorApp</h2>
+        <p>MyTutor is a web tutor management system designed to automate tutor/TA selection, allocation, monitoring and
+            scheduling. It houses websites for academic courses, which are tailored for each user. If you are a UCT
+            staff member or registered student, you can access the application by logging in using your username and
+            password. Administrators can create new course sites that can be used for viewing the tutor course schedule
+            as well as creating or signing up for tutor activities. Getting started is easy, simply follow the
+            instructions below and start exploring the system. </p>
+    </section>
+
+    <section class="section" id="login">
+        <h2>Login</h2>
+        <p>1. Open your internet browser and type http://196.47.239.204:8080/login into the address bar.</p>
+        <p>2. Enter your username and password in the respective input boxes.</p>
+        <p>3. Click login.</p>
+        <h6>If you cant login</h6>
+        <p>1. Click on the forgot password tag that can be found below the login button.</p>
+        <p>2. Enter your email and click on submit.</p>
+        <p>3. Enter the OTP number sent to the email you provided.</p>
+        <p>4. Enter your new password and confirm it.</p>
+        <p>5. Click on submit.</p>
+        <p>6. You’ll be redirected back to the login page where you can login using your new password.</p>
+    </section>
+
+    <section class="section" id="reset_password">
+        <h2>Reset Password</h2>
+        <p>
+            Enter your saved username details and click next. The system will check for your user profile and get the
+            email address saved for it to use it to send the OTP for confirming the user. Enter the OTP and click verify
+            or resend password if you didn't receive your email address; If the OTP is verified you'll be prompted to
+            enter new login password and submit it for changes to be effective. When you done you can click exit which
+            will direct you to the login page and login with your new password.
+        </p>
+    </section>
+
+    <section class="section" id="user_profile">
+        <h2>Update Profile</h2>
+        <p>
+            To view profile click on the user icon on the top right of your user homepage. A drop down will show and
+            click on profile details link to view your profile;
+            Your profile details will be shown their after. Click on change details to update them, the updating view
+            will be shown below and then the
+            corresponding button to submit the section you wanted changed. The new details will be shown after clicking
+            submit if you allowed to update them.
+        </p>
+    </section>
+
+    <section class="section" id="registration">
+        <h2>Tutor & TA Registration</h2>
+        <h5>Register a new account (if you're a Tutor or TA)</h5>
+        <p>1. Open your internet browser and type http://196.47.239.204:8080/login into the address bar.</p>
+        <p>2. Click on the register button.</p>
+        <p>3. Choose the role (tutor/TA) and enter the required details and click on ‘sign me up’.</p>
+        <p>4. Enter the OTP number sent to the email address you provided and click on ‘submit’.</p>
+        <p>5. You’ll be redirect to the login page where you can login using your username and password.</p>
+    </section>
+
+    <section class="section" id="applications">
+        <h2>Applications</h2>
+        <p>Captures Tutor and Ta applications</p>
+        <section class="subsection" id="make_application">
+            <h3>Tutor & TA Applications:</h3>
+            <p>Click on the link provided to you buy your Department administrators to which will direct you to the
+                application form webpage. If you're redirected back to login, enter the link again. An application form
+                will be shown if the application is still open else a message for application is closed will be shown.
+                Enter all the required details. To add course marks, enter the course code and your grade and click on
+                add to add the marks, change the details for the new course marks and click on add to add it. Click
+                submit to submit your application.The link to check your application will be shown and your application
+                ID to track your appliication.
+            </p>
+        </section>
+        <section class="subsection" id="check_application">
+            <h3>Check Application:</h3>
+            <p>Use this link: https://196.47.239.204/applicant/show</p>
+        </section>
+        <section class="subsection" id="upload_app_documents">
+            <h3>Uploading Documents:</h3>
+            <p>Click on upload documents select the type and upload your document. If Successful the results will be
+                shown</p>
+        </section>
+        <section class="subsection" id="register_applicant">
+            <h3>Register Successful Applicant:</h3>
+            <p>On tracking your application if it is Successful you will be allowed to register by click of a button and
+                an email for confirmation and login password will be emailed to you. You can use reset password on the
+                login page to set your application </p>
+        </section>
+    </section>
+
+    <section class="section" id="tutor_homepage">
+        <h2>Navigating Tutor Homepage</h2>
+        <p></p>
+    </section>
+
+    <section class="section" id="ta_homepage">
+        <h2>Navigating TA Homepage</h2>
+        <p></p>
+    </section>
+
+    <section class="section" id="admin_homepage">
+        <h2>Navigating Admin Homepage</h2>
+        <p></p>
+        <section class="subsection" id="admin_courses">
+            <h3>Manage Courses:</h3>
+            <p>
+                In the Manage courses page there are three options: Create a new course, Edit an existing course,
+                Viewing a course;
+            <h5>Creating a new course</h5>
+            <p>
+                Enter the course details
+            </p>
+            </p>
+        </section>
+        <section class="subsection" id="admin_users">
+            <h3>Manage Users:</h3>
+            <p></p>
+        </section>
+        <section class="subsection" id="admin_posts">
+            <h3>Create Posts:</h3>
+            <p></p>
+        </section>
+        <section class="subsection" id="admin_applicants">
+            <h3>Manage Applicants:</h3>
+            <p></p>
+        </section>
+        <section class="subsection" id="admin_view_applicants">
+            <h3>View Applicants:</h3>
+            <p></p>
+        </section>
+        <section class="subsection" id="admin_tables">
+            <h3>View Tables:</h3>
+            <p></p>
+        </section>
+        <section class="subsection" id="admin_reports">
+            <h3>View Reports:</h3>
+            <p>This sec</p>
+        </section>
+    </section>
+    <section class="section" id="logout">
+        <h2>Logout</h2>
+        <p></p>
+    </section>
+    <section class="section" id="clear">
+        <h2>Clear session</h2>
+        <p></p>
+    </section>
+
+
+    <footer>
+        <p style="text-align:center;">&copy; 2023 UCT Computer Science</p>
+    </footer>
+</body>
+
+</html>

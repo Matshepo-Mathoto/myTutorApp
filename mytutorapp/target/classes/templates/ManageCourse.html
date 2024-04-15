@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Manage course</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/formstyle.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navigation.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/viewApplicants.css}">
+    <script th:src="@{/javascript/topnavscript.js}"></script>
+</head>
+<!--the change to commita-->
+
+<body>
+    <header style="height: 60px; width:100%; display:block">
+        <nav class="topnav">
+            <h1 class=" title"><strong>MyTutorApp</strong></h1>
+            <div class="dropdown">
+                <button class="icon1" onclick="show_hide()">
+                    <div class="profile-area">
+                        <span th:text="${session.myUsername}" class="user"></span>
+                    </div>
+                    <div class="profile-area">
+                        <img th:src="@{/images/login.png}" class="profile">
+                    </div>
+
+                </button>
+                <div id="list-items">
+                    <a id="logoutLink" href="#" onclick="submitLogout()">Logout</a>
+                    <form id="logoutForm" th:action="@{/logout}" method="post">
+                        <input type="hidden" />
+                    </form>
+                    <a href="/user/change/details">Change Details</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <nav class="select">
+            <div class="toggle"><a href="#"><ion-icon name="menu-outline"></ion-icon></a></div>
+            <ul class="menu">
+                <li><a href="/admin/homepage" class="item"><i class="fa fa-home"></i></a></li>
+                <li><a href="/admin/manage/course" class="item">Manage Courses</a></li>
+                <li><a href="/admin/manage/users" class="item">Manage Users</a></li>
+                <li><a href="/admin/create/post" class="item"> Create Posts</a></li>
+                <li><a href="/admin/manage/applicants" class="item">Manage Applicants</a></li>
+                <li><a href="/admin/view/applicant" class="item">View Applicants</a></li>
+                <li><a href="/admin/view/tables" class="item">View Tables</a></li>
+                <li><a href="/admin/view/reports" class="item">System Reports</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div>
+        <h2 class="course-important">Manage courses</h2>
+    </div>
+   
+    <div id="headerbar" class="controls">
+        <button type="button" th:class="${session.coursehandler == 'create' ? 'btn activeTab': 'btn'}"><a
+                href="/admin/requestCreate">Create New Course</a></button>
+        <button type="button" th:class="${session.coursehandler == 'update' ? 'btn activeTab': 'btn'}"><a
+                href="/admin/requestUpdate">Update Course Details</a></button>
+        <button type="button" class="btn"><a href="/admin/requestDisplay">View Course Details</a></button>
+    </div>
+    <div class="group">
+        <pre class="error-post" id="errorMessage" th:text="${session.errorMessage}"></span>
+        <span class="result-post" id="results" th:text="${session.resultMessage}"></span>
+    </div>
+    <section id="courseCreate" th:if="${session.coursehandler == 'create'}">
+        <h3 class="course-heading">Creating Course</h3>
+        <form id="myCourseForm" th:action="@{/admin/add/course}" th:object="${CourseForm}" method="post" class="create">
+            <div class="group">
+                <label class="form-label" for="courseCode">Course Code*:</label>
+                <input class="form-text" type="text" id="courseCode" th:field="*{courseCode}" placeholder="CSC1015F"
+                    required />
+            </div>
+            <div class="group">
+                <label class="form-label" for="courseYear">Course Year*:</label>
+                <input class="form-text" type="number" min="2020" max="2050" id="courseYear" th:field="*{courseYear}"
+                    placeholder="yyyy" required />
+            </div>
+            <div class="group">
+                <label class="form-label" for="courseDescription">Course Description*:</label>
+                <input class="form-text" type="text" id="courseDescription" th:field="*{courseDescription}"
+                    placeholder="Computer Science 1015" required />
+            </div>
+            <div class="group">
+                <label class="form-label" for="courseDepartment">Department*:</label>
+                <input class="form-text" type="text" id="department" th:field="*{department}"
+                    placeholder="Computer Science" required />
+            </div>
+            <div class="group">
+                <label class="form-label" for="numberOfStudents">Number of Students:</label>
+                <input class="form-text" type="number" min="0" max="2000" id="numberOfStudents"
+                    th:field="*{numberOfStudents}" placeholder="0" />
+            </div>
+            <button type="submit" class="btn" onclick="addCourse()">Add Course</button>
+        </form>
+    </section>
+    <section id="courseCreate" th:if="${session.coursehandler == 'update' || session.coursehandler == 'view'}"
+        class="create">
+        <div class="group">
+            <form id="selectCoursesForm" th:action="@{/admin/selectCourse}" method="post">
+                <input class="form-text" type="text" id="currentCourseInput" list="currentCourseList"
+                    name="selectedSite" placeholder="Enter Course Name" required>
+                <datalist id="currentCourseList">
+                    <option th:each="site: ${adminCourseSites}" th:value="${site}" th:text="${site}"
+                        th:selected="${site == session.managingcourse}"></option>
+                </datalist>
+                <button class="btn" type="submit">Open</button>
+            </form>
+        </div>
+        <br>
+        <div class="group" th:if="${session.managingcourse != null && session.coursehandler == 'update'}">
+            <h3 class="course-heading" th:text="${'Editing Course: ' + session.managingcourse}">Editing Course</h3>
+            <div>
+                <form id="courseUpdateForm" th:action="@{/admin/update/courseInfo}" th:object="${CourseForm}"
+                    method="post">
+                    <div class="group">
+                        <label class="form-label" for="courseDescription">Course Description*:</label>
+                        <input class="form-text" type="text" id="courseDescription" th:field="*{courseDescription}"
+                            placeholder="Computer Science 1015" required />
+                    </div>
+                    <div class="group">
+                        <label class="form-label" for="courseDepartment">Department*:</label>
+                        <input class="form-text" type="text" id="department" th:field="*{department}"
+                            placeholder="Computer Science" required />
+                    </div>
+                    <div class="group">
+                        <label class="form-label" for="creatorID">Creator ID*:</label>
+                        <input class="form-text" type="text" id="creatorID" th:field="*{creatorID}"
+                            placeholder="admin username" required />
+                    </div>
+                    <div class="group">
+                        <label class="form-label" for="numberOfStudents">Number of Students:</label>
+                        <input class="form-text" type="number" min="0" max="2000" id="numberOfStudents"
+                            th:field="*{numberOfStudents}" placeholder="0" />
+                    </div>
+                    <button class="btn" type="submit">Update Course Info</button>
+                </form>
+            </div>
+            <div class="group">
+                <form name="updateConvenor" th:action="@{/admin/update/courseConvenor}" th:object="${CourseForm}"
+                    method="post">
+                    <label class="form-label" for="convenor">Convenor Username*:</label>
+                    <input class="form-text" type="text" id="convenorUsername" name="convenorUsername"
+                        th:field="*{convenor}" required />
+                    <button class="btn" type="submit">Update Convenor</button>
+                </form>
+            </div>
+            <div class="group">
+                <form name="updateTeachingAssistant" th:action="@{/admin/update/courseTA}" th:object="${CourseForm}"
+                    method="post">
+                    <label class="form-label" for="taUsername">Teaching Assistant Username*:</label>
+                    <input class="form-text" type="text" id="taUsername" name="taUsername"
+                        th:field="*{teachingAssistant}" required />
+                    <button class="btn" type="submit">Update Teaching Assistant</button>
+                </form>
+            </div>
+            <div class="group">
+                <form name="addLecturer" th:action="@{/admin/add/courseLecturer}" method="post">
+                    <label class="form-label" for="lecturer">Lecturer Username*:</label>
+                    <input class="form-text" type="text" id="lecturer" name="lecturer" required />
+                    <button class="btn" type="submit">Add Lecturer</button>
+                </form>
+            </div>
+            <div id="addingTutors" class="group">
+                <form th:action="@{/admin/listfile}" method="post" enctype="multipart/form-data">
+                    <label class="form-label" for="file">Upload textfile with list of Tutors' username:</label><br>
+                    <input type="file" id="file" name="file" accept=".txt, .docx .pdf" multiple>
+                    <br>
+                    <button class="btn" type="submit">Open File</button>
+                </form>
+                <form name="addTutor" th:action="@{/admin/add/courseTutors}" method="post">
+                    <label class="form-label" for="tutorUsername">Tutors:</label><br>
+                    <textarea id="tutorUsername" name="tutorlist" th:text="${tutorlist}"
+                        placeholder="list tutor usernames one per line" required></textarea>
+                    <button class="btn" type="submit">Add Tutors</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="group" id="courseView" th:if="${session.managingcourse != null && session.coursehandler == 'view'}">
+        <h3 class="course-heading" th:text="${'Viewing Course: ' + session.managingcourse}">Viewing Course Details</h3>
+        <div class="long">
+            <p>Course Code: <span th:text="${CourseForm.courseCode}"></span></p>
+            <p>Course Year: <span th:text="${CourseForm.courseYear}"></span></p>
+            <p>Course Description: <span th:text="${CourseForm.courseDescription}"></span></p>
+            <p>Department: <span th:text="${CourseForm.Department}"></span></p>
+            <p>Creator ID: <span th:text="${CourseForm.creatorID}"></span></p>
+            <p>Number of Students: <span th:text="${CourseForm.numberOfStudents}"></span></p>
+            <p>Convenor Username: <span th:text="${CourseForm.convenor}"></span></p>
+            <p>Teaching Assistant Username: <span th:text="${CourseForm.teachingAssistant}"></span></p>
+            <p>Lecturers:
+            <div class="group">
+                <ol>
+                    <li th:each="lecturer: ${CourseForm.lecturers}" th:text="${lecturer}"></li>
+                </ol>
+            </div>
+            </p>
+            <p>Tutors:
+            <div class="group">
+                <ol>
+                    <li th:each="tutor: ${CourseForm.tutors}" th:text="${tutor}"></li>
+                </ol>
+            </div>
+            </p>
+        </div>
+        <form id="delete_form" th:action="@{/admin/delete/course}" method="post">
+            <button type="button" class="btn" onclick="confirmDelete()">Delete Course</button>
+        </form>
+    </section>
+
+</body>
+
+</html>

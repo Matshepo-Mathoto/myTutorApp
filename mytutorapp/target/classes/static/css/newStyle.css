@@ -1,0 +1,274 @@
+*{
+    margin:0px;
+    padding: 0px;
+    box-sizing: border-box;
+    outline: none;
+    border:none;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+header{
+    width: 100%;
+}
+.topnav{
+    width: 100%;
+    background-color: cyan;
+    height: 75px;
+    line-height: 75px;
+    padding: 0px 120px;
+}
+
+.topnav h1{
+    font-size: 32px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    float:left;
+    /*margin-left: 40%;
+   /* text-transform: uppercase;*/
+    /*text-align: center;*/
+}
+
+.dropdown{
+    right:0;
+    left:auto;
+    position: absolute;
+    display: block;
+}
+.icon1{
+    background-color:cyan;
+    padding: 10px, 22px;
+    font-size: 15px;
+    border: "none";
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+.icon1:hover{
+    background: #16a085;
+}
+
+#list-items{
+    display: none;
+    position: relative;
+    background-color:  #16a085;
+    width: 156.5px;
+}
+#list-items a:hover
+{
+    background-color: cyan;
+}
+#list-items a{
+    display: block;
+    font-size: 15px;
+    background-color: #16a085;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
+}
+
+
+
+/*.topnav ul li{
+    float:left;
+    list-style: none;
+    position: relative;
+}
+
+.topnav ul li a {
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    color:white;
+    font-size: 17px;
+    padding: 0px 16px;
+    display: block;
+}
+.topnav ul li a :hover{
+    background-color: lightgreen;
+}
+.topnav ul li ul{
+    position: absolute;
+    display: none;
+    background-color: #16a085;
+    border-radius: 0px 0px 5px 5px;
+
+}
+.topnav ul li:hover ul{
+    display: block;
+}
+
+.topnav ul li ul li{
+    line-height: 1;
+    width: 190px;
+    border-radius: 5px;
+    padding: 6px;
+}
+.topnav ul li ul a{
+    padding: 10px 16px;
+}*/
+/*.topnav ul li ul a:hover{
+    background-color: lightgreen;
+}*/
+
+
+/*side navigation bar*/
+body{
+    background: white;
+}
+.side-nav{
+    position: absolute;
+    top: 200px;
+    bottom: 0;
+    height: 100%;
+    background:#fff;
+    left: 0;
+    width: 90px;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+}
+.side-nav:hover{
+    width:280px;
+    transition: all 0.5s ease;
+}
+.logo{
+    text-align: center;
+    display: flex;
+    transition: all 0.5s ease;
+    margin: 10px 0 0 10px;
+}
+.logo span{
+    font-weight: bold;
+    padding-left: 15px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+.side-nav ul li a{
+    position: relative;
+    color: rgb(85,83,83);
+    font-size: 14px;
+    display: table;
+    width: 200px;
+    padding: 10px;
+}
+
+.side-nav ul li a .fa{
+    position: relative;
+    width: 70px;
+    height:40px;
+    top:14px;
+    font-size: 30px;
+    margin-left: -30%;
+    /*text-align: center;*/
+}
+
+.nav-item{
+    position: relative;
+    top:12px;
+    margin-left: 10px;
+
+}
+.side-nav ul li a:hover{
+    background-color: grey;
+}
+
+/*courses navigation bar*/
+.select{
+    background: white;
+    padding: 5px 20px;
+    display: flex;
+    align-items:center;
+    color:black;
+}
+
+.select a{
+    color: white;
+    cursor: pointer;
+    justify-content: space-between;
+    margin-right: 10px;
+    background-color: #16a085;
+    padding: 16px 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.select a:hover{
+    color: #ef4b3f;
+}
+.menu{
+    justify-content: space-between;
+    display: flex;
+    align-items:center;
+    list-style: none;
+}
+.menu li{
+    padding: 15px 10px;
+    font-size: 16px;
+}
+
+.toggle{
+    font-size: 30px;
+    display: none;
+}
+
+@media screen and (max-width:1200px){
+    .select{
+        display: block;
+        position: relative;
+        padding:10px 20px;
+    }
+    .select a{
+        padding: 10px 20px;
+    }
+    .menu{
+        margin-top: 50px;
+        display: none;
+    }
+    .menu.active, .toggle{
+        display:block;
+    }
+    .toggle{
+        position: absolute;
+        top:10px;
+        left: 20px;
+    }
+    .topnav ul li a {
+        padding: 20px 16px;
+    }
+    .topnav ul li ul li{
+        padding: 20px;
+    }
+
+}
+/*courses css*/
+/*.select a{
+    position: relative;
+    background-color: #16A805;
+    display: inline;
+    border: none;
+    color:black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    margin: auto;
+    left:0;
+    right:0;
+    top: 60px;
+    bottom: 0;
+    cursor: pointer;
+}
+
+
+.select a:hover{
+    background-color:lightgreen;
+}*/
+@media screen and (max-width:768px) {
+    .topnav h1{
+        font-size: 20px;
+    }
+    
+}
+
+
+
+

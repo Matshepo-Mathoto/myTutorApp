@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Compose Email</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/elementstyling.css}">
+
+    <script>
+        function addEmail() {
+            var username = document.getElementById("username");
+            var textarea = document.getElementById("listOfReceivers");
+            var listOfReceivers = textarea.value;
+
+            listOfReceivers = listOfReceivers.trim();
+            var lines = listOfReceivers.split("\n");
+            var newName = username.value;
+            lines.push(newName);
+
+            var updatedList = lines.join("\n");
+            textarea.value = updatedList;
+        }
+
+        function sendToAll() {
+            var check = document.getElementById("sendAll");
+            if (check.checked) {
+                var textarea = document.getElementById("listOfReceivers");
+                textarea.value = myList;
+
+            }
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <h2> Composing Email</h2>
+    <p> My Email Address:<span th:text="${'<' + myEmailAddress + '>'}"></span></p>
+
+    <!--<div>
+        <form th:action="@{/user/get/emailAddresses}" method="post" enctype="multipart/form-data">
+            <label class="form-label" for="file">Upload textfile with list of tutor usernames:</label><br>
+            <input type="file" id="file" name="file" accept=".txt, .docx .pdf" multiple>
+            <br>
+            <button class="btn" type="submit">OPEN</button>
+        </form>
+    </div>-->
+    <div>
+        <label class="form-label">Username:</label>
+        <input class="form-text" type="text" id="username" list="usernameList" name="usernames"
+            placeholder="search user" required>
+        <datalist id="usernameList">
+            <option th:each="emailString: ${users}" th:value="${emailString}" th:text="${emailString}"></option>
+        </datalist>
+        <button type="button" onclick="addEmail()">ADD</button>
+        <!--<input type="checkbox" id="sendAll" name="sendAll" onclick="sendToAll()">
+        <label for="sendAll">Send to All</label>
+        -->
+    </div>
+    <div>
+        <form th:action="@{/user/submit/email}" method="post">
+            <div>
+                <label>List of Receivers:</label><br>
+                <textarea class="resizable-input" name="listOfReceivers" id="listOfReceivers" required></textarea>
+            </div>
+            <div class="group">
+                <label class="form-label" for="subjectLine">Subject Line:</label><br>
+                <input class="form-text" type="text" id="subjectLine" name="subjectLine" required />
+            </div>
+            <div class="group">
+                <label class="form-label" for="message">Message to send:</label><br>
+                <textarea class="form-text" type="text" id="message" name="message" required></textarea>
+            </div>
+            <button type="submit">SEND EMAIL</button>
+        </form>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var myList = /*[[${emailString}]]*/[];
+        /*]]>*/
+    </script>
+</body>
+
+</html>

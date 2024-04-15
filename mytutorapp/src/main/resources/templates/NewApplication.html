@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>New Application</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/elementstyling.css}">
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/formstyle.css}">-->
+    <script th:src="@{/javascript/addcoursemarks.js}"></script>
+
+</head>
+
+<body>
+    <div class="group">
+        <span class="error-post" id="errorMessage" th:text="${session.errorMessage}"></span>
+        <span class="result-post" id="results" th:text="${session.resultMessage}"></span>
+    </div>
+    <div th:if="${session.showForm}">
+        <h2 th:text="${session.postIdentifier}">Post Name</h2>
+        <pre th:text="${postDescription}">Post Description</pre>
+    </div>
+    <div th:if="${session.showForm}">
+        <form th:action="@{/applicant/submit/application}" th:object="${applicant}" method="post">
+            <div>
+                <label for="name">First Name:</label>
+                <input type="text" id="name" th:field="*{firstName}" placeholder="Your Name" required/>
+            </div>
+            <div>
+                <label for="lastname">Last Name:</label>
+                <input type="text" id="lastname" th:field="*{lastName}" placeholder="Your Last Name" required/>
+            </div>
+            <div>
+                <label for="username">Student Number:</label>
+                <input type="text" id="username" th:field="*{username}" placeholder="eg. ABCXYZ001" required/>
+            </div>
+            <div>
+                <label for="email">Email Address:</label>
+                <input type="text" id="email" th:field="*{emailAddress}" placeholder="eg. ABCXYZ001@myuct.ac.za" required/>
+            </div>
+            <div>
+                <label for="contactNumber">Contact Number:</label>
+                <input type="number" id="contactNumber" th:field="*{contactNumber}" placeholder="eg. 0712345678" required/>
+            </div>
+            <div>
+                <label for="studyLevel">Level of study:</label>
+                <select th:field="*{studyLevel}" id="studyLevel" name="studyLevel" title="Select your level of study"
+                    required>
+                    <option value="undergraduate">Undergraduate</option>
+                    <option value="postgraduate">Postgraduate</option>
+                </select>
+            </div>
+            <div>
+                <label for="yearOfStudy">Year of Study:</label>
+                <input type="number" id="yearOfStudy" th:field="*{yearOfStudy}" placeholder="eg. 1" required/>
+            </div>
+            <div>
+                <label for="qualifications">Qualifications or Majors:</label>
+                <input type="text" id="qualifications" th:field="*{qualifications}"
+                    placeholder="Put N/A if undergraduate" required/>
+            </div>
+            <div>
+                <label for="Course">Course:</label>
+                <input class="course-class" type="text" id="course">
+                <label for="mark">Mark:</label>
+                <input type="number" class="mark-class" id="mark" min=0 max=100>
+                <input type="hidden" id="courses" name="courses">
+                <button type="button" id="addCourse" onClick="add()">Add</button>
+            </div>
+            <div id="display1" class="js-todo-display todo-display"></div>
+
+            <div>
+                <button type="submit">Submit Application</button>
+            </div>
+        </form>
+
+    </div>
+    <button><a href="/exit">Exit</a></button>
+
+</body>
+
+
+</html>

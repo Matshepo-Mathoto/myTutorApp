@@ -1,0 +1,306 @@
+<head>
+    <title>MyTutorApp Homepage</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/tutorpagestyling.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navigation.css}">
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
+    <script th:src="@{/javascript/topnavscript.js}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+    <script th:src="@{/javascript/calendarscript.js}"></script>
+    <script>
+        function toggleShow() {
+            var x = document.getElementById("divFeedback");
+            var check = document.getElementById("isEnd");
+            if (check.checked) {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <header style="height: 60px; width:100%; display:block">
+        <nav class="topnav">
+            <h1 class=" title"><strong>MyTutorApp</strong></h1>
+            <div class="dropdown">
+                <button class="icon1" onclick="show_hide()">
+                    <div class="profile-area">
+                        <span th:text="${session.myUsername}" class="user"></span>
+                    </div>
+                    <div class="profile-area">
+                        <img th:src="@{/images/login.png}" class="profile">
+                    </div>
+
+                </button>
+                <div id="list-items">
+                    <a id="logoutLink" href="#" onclick="submitLogout()">Logout</a>
+                    <form id="logoutForm" th:action="@{/logout}" method="post">
+                        <input type="hidden" />
+                    </form>
+                    <a href="/user/change/details">Change Details</a>
+                    <a href="#">HELP</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <nav class="side-nav">
+            <ul>
+                <li>
+                    <a href="/tutor/display/calendar" class="logo"><i class="fa fa-calendar" aria-hidden="true"></i>
+                        <span class="nav-item-first">CALENDAR</span></a>
+                </li>
+                <li th:if="${session.hasSelected}">
+                    <a href="/tutor/display/sessionlog"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <span class="nav-item">SESSION LOG</span></a>
+                </li>
+                <li th:if="${session.hasSelected}">
+                    <a href="/tutor/display/sectioninfo"><i class="fa fa-user" aria-hidden="true"></i>
+                        <span class="nav-item">SECTION INFO</span></a>
+                </li>
+                <li th:if="${session.hasSelected}">
+                    <a href="/tutor/show/signups"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                        <span class="nav-item">SIGN-UP</span></a>
+                </li>
+                <li>
+                    <a href="/help/tutor_homepage"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                        <span class="nav-item">HELP</span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div>
+        <nav class="select">
+            <div class="toggle"><a href="#"><ion-icon name="menu-outline"></ion-icon></a></div>
+
+            <form id="myform" th:action="@{/tutor/display/course}" th:object="${HomepageForm}" method="post">
+                <div>
+                    <ul class="menu">
+                        <li>
+                            <button type="button"> <a class="home" href="/tutor/home"><i
+                                        class="fa fa-home"></i></a></button>
+                        </li>
+                        <li th:each="course: ${courses}">
+                            <input type="hidden" id="clickedCourse" name="clickedCourse" th:value="${course}" />
+                            <button
+                                th:class="${session.coursename==course} ? 'course-name open-site' :'course-name not-open' "
+                                id="button1" th:text="${course}" name="clickedButton" th:value="${course}"></button>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </nav>
+    </div>
+
+    <div class="group">
+        <span class="error-post" id="errorMessage" th:text="${session.errorMessage}"></span>
+        <span class="result-post" id="results" th:text="${session.resultMessage}"></span>
+    </div>
+
+    <div th:if="${session.tutor_view == 'calendar'}" id="calendar"
+        style="height: 100%; margin-left: 7%; margin-top:10%;"></div>
+
+    <div class="tutor" th:if="${session.tutor_view == 'sessionslist'}">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Session ID</th>
+                    <th>Activity ID</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Day</th>
+                    <th>Venue</th>
+                    <th>Slots Available</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="entry : ${mapSessions.entrySet()}" th:if="${entry.value.isOpen}">
+                    <td th:text="${entry.key}"></td>
+                    <td th:text="${entry.value.activityID}"></td>
+                    <td th:text="${entry.value.startTime}"></td>
+                    <td th:text="${entry.value.endTime}"></td>
+                    <td th:text="${entry.value.day}"></td>
+                    <td th:text="${entry.value.venue}"></td>
+                    <td th:text="${entry.value.availableSlots}"></td>
+                    <td>
+                        <span th:if="${entry.value.isFull==true || entry.value.isSigned}"
+                            th:text="${entry.value.isSigned ? 'Signed up': 'Full'}"></span>
+                        <a th:if="${entry.value.isFull==false && entry.value.isSigned==false}"
+                            th:href="${'/tutor/display/sessionInfo/' + entry.key}">Sign-up</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <fieldset th:if="${session.tutor_view == 'sessioninfo'}" class="tutor">
+        <legend>Session Info</legend>
+        <p> Session ID:
+            <span th:text="${activitysession.activitySessionID}"></span>
+        </p>
+        <p> Activity Name:
+            <span th:text="${activitysession.activity.activityName}"></span>
+        </p>
+        <p> Activity Description:
+            <span th:text="${activitysession.activity.activityDescription}"></span>
+        </p>
+        <p> Activity Type:
+            <span th:text="${activitysession.activity.activityType}"></span>
+        </p>
+        <p> Start Time:
+            <span th:text="${activitysession.startTime}"></span>
+        </p>
+        <p> End Time:
+            <span th:text="${activitysession.endTime}"></span>
+        </p>
+        <p> Day of the Week:
+            <span th:text="${activitysession.day}"></span>
+        </p>
+        <p> Location:
+            <span th:text="${activitysession.venue}"></span>
+        </p>
+        <p> Maximum number of Tutors:
+            <span th:text="${activitysession.numberOfTutors}"></span>
+        </p>
+        <p> Repeats Weekly:
+            <span th:text="${activitysession.recurring}"></span>
+        </p>
+        <p>Start Date:
+            <span th:text="${activitysession.recurringFrom}"></span>
+        </p>
+        <p th:if="${activitysession.recurring}"> End Date:
+            <span th:text="${activitysession.recurringTo}"></span>
+        </p>
+        <p> Signup Opening Date:
+            <span th:text="${activitysession.openingDate}"></span>
+        </p>
+        <p> Signup Closing Date:
+            <span th:text="${activitysession.closingDate}"></span>
+        </p>
+        <p> Available Slots:
+            <span th:text="${activitysession.availableSlots}"></span>
+        </p>
+        <button th:if="${activitysession.isFull==false && activitysession.isOpen}"><a
+                href="/tutor/add/signup">Sign-up</a></button>
+
+    </fieldset>
+
+    <div th:if="${session.tutor_view == 'sectioninfo'}" class="tutor">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Session ID</th>
+                    <th>Activity Name</th>
+                    <th>Day</th>
+                    <th>Time Period</th>
+                    <th>From Date - To Date</th>
+                    <th>Location</th>
+                    <th>Slots Available</th>
+                    <th>Sign-up Status</th>
+                    <th>Your Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="entry : ${mapSessions.entrySet()}">
+                    <td th:text="${entry.value.activitySessionID}"></td>
+                    <td th:text="${entry.value.activity.activityName}"></td>
+                    <td th:text="${entry.value.day}"></td>
+                    <td th:text="${entry.value.startTime + ' - ' + entry.value.endTime}"></td>
+                    <td th:text="${entry.value.recurringFrom + ' - ' + entry.value.recurringTo}"></td>
+                    <td th:text="${entry.value.venue}"></td>
+                    <td th:text="${entry.value.availableSlots}"></td>
+                    <td th:text="${entry.value.isOpen} ? 'Open': 'Closed'"></td>
+                    <td th:text="${signedSession == entry.value.activitySessionID} ? 'Member' : ''"></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${session.tutor_view == 'sessionlog'}" class="tutor">
+        <form th:action="@{/tutor/add/sessionlog}" method="post">
+            <div>
+
+                <label for="sessionID">Session ID:</label><br>
+                <select style="width:100%" class="form-text" id="sessionID" name="sessionID"
+                    placeholder="Select session" required>
+                    <option th:each="sessionID: ${sessionIDs}" th:value="${sessionID}" th:text="${sessionID}"></option>
+                </select>
+                <input type="checkbox" id="isEnd" name="isEnd" onclick="toggleShow()">
+                <label for="isEnd">End of Session</label>
+            </div>
+            <div id="divFeedback" style="display: none;">
+                <label for="sessFeedback">Session feedback:</label><br>
+                <textarea id="sessFeedback" name="feedback">Session feedback</textarea>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+
+    <script th:inline="javascript">
+        // Convert Thymeleaf model attribute to JavaScript variable
+        var events = /*[[${events}]]*/[];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: events, // Use the events variable for event data
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                eventContent: function (info) {
+                    const eventLocation = info.event.extendedProps.location; // Get the location
+                    const eventStart = info.event.start;
+                    const eventEnd = info.event.end;
+                    const eventContent = document.createElement('div');
+                    eventContent.classList.add('event-content');
+
+                    const eventTitle = document.createElement('div');
+                    eventTitle.classList.add('event-title');
+                    eventTitle.textContent = info.event.title;
+                    eventContent.appendChild(eventTitle);
+
+                    if (eventLocation) {
+                        const eventLocationElem = document.createElement('div');
+                        eventLocationElem.classList.add('event-location');
+                        eventLocationElem.textContent = `Location: ${eventLocation}`;
+                        eventContent.appendChild(eventLocationElem);
+                    }
+
+                    if (eventStart && eventEnd) {
+                        const eventTimeElem = document.createElement('div');
+                        eventTimeElem.classList.add('event-time');
+                        eventTimeElem.textContent = `Time: ${formatEventTime(eventStart)} - ${formatEventTime(eventEnd)}`;
+                        eventContent.appendChild(eventTimeElem);
+                    }
+
+                    return { domNodes: [eventContent] };
+                }
+            });
+
+            calendar.render();
+        });
+
+        function formatEventTime(date) {
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+    </script>
+
+</body>
+
+</html>

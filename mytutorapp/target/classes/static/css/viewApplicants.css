@@ -1,0 +1,251 @@
+.heading-important{
+    text-align: center;
+    color:lightblue;
+    font-size:30px;
+    border: solid lightblue;
+    padding: 0px 20px 10px;
+    width: 100%;
+
+}
+.view{
+    margin-left: 20%;
+    margin-top: 20px;
+}
+input{
+    border: solid 3px;
+}
+
+.view-btn{
+    border-radius: 5px;
+    background-color: #16a085;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.btn-group button{
+    background-color: #16a085;
+    border-radius: 20px;
+    font-size: 20px;
+    border: solid 2px;
+    color:white;
+    cursor: pointer;
+    width: 20%;
+}
+.btn-group button:hover, .view-btn:hover{
+    background-color: #16A805;
+}
+
+.info{
+    margin: 5%;
+    margin-left: 15%;
+}
+
+label{
+    font-size: 15px;
+}
+#roleSelect{
+    border: solid 3px;
+}
+.group{
+    margin-bottom: 12px;
+}
+.manage-user{
+    margin-left: 20%;
+}
+.manage-div{
+    margin: 10px;
+}
+.showuser{
+    margin-left: 20%;
+}
+.spring-Messages{
+    text-align: center;
+}
+.error{
+    color:red;
+}
+.result{
+    color:blue;
+    font-size: 20px;
+    font-weight: 700px;
+    margin-left: 30%;
+}
+/*for course*/
+.course-important{
+    text-align: center;
+    color:lightblue;
+    font-size:30px;
+    border: solid lightblue;
+    padding: 0px 20px 10px;
+    width: 100%;
+}
+#courseView{
+    
+    margin-left: 15%;
+}
+#courseView p{
+    margin: 4px;
+}
+.controls{
+   margin-left: 15%;
+}
+a{
+    color: white;
+}
+.controls button{
+    border-radius: 5px;
+    background-color: #16a085;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    margin: 50px 2px 20px;
+    cursor: pointer;
+}
+.create{
+    margin-left: 15%;
+}
+.btn{
+    border-radius: 5px;
+    background-color: #16a085;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.resultMessage
+{
+    margin-left: 20%;
+}
+.description-area{
+    border: solid 2px;
+    width:300px;
+    height: 100px;
+}
+.course-manage{
+    margin:10px;
+}
+.form-text{
+    border: solid 2px;
+    height: 30px;
+    width: 250px;
+}
+.course
+{
+    display: block;
+}
+/*for manage course*/
+.course-heading{
+    margin-left: 15%;
+}
+.resultMessage-course{
+    margin-left: 0;
+}
+/*Manage user*/
+.create-user{
+    margin-left: 15%;
+    margin-top: 1%;
+}
+/* post*/
+.post-create{
+    margin-top: 10%;
+}
+.post-create div{
+    margin: 1;
+}
+.error-post{
+    text-align: center;
+    color: red;
+}
+.result-post{
+    text-align: center;
+    color: green;
+}
+.create-post{
+    margin: 13px;
+}
+/*manage Applicant*/
+.form-text-applicant{
+    width:500px;
+    height: 150px;
+    border:solid 3px;
+}
+
+/*view applicants*/
+.heading-app-important{
+    text-align: center;
+    color:lightblue;
+    font-size:30px;
+    border: solid lightblue;
+    padding: 0px 20px 10px;
+    width: 100%;
+
+}
+.app-important{
+    margin-left: 15%;
+    margin-top: 5%;
+}
+.form-text-app{
+    border: solid 3px;
+    height: 200px;
+    width: 80%;
+}
+.applicant-change-space
+{
+    margin:10px;
+}
+/*DB table*/
+.table-view select{
+    width:50%
+}
+.table-view form{
+    margin-left: 19%;
+    width:50%;
+    display: inline-flex;
+    margin-top: 5%;
+}
+th {
+    width: auto;
+    min-width: 50px;
+    background-color: white;
+}
+
+table,  h3 {
+    border-collapse: collapse;
+  
+}
+table,h3{
+    margin: 7px;
+}
+.table-view table{
+    width:50%;
+}
+
+#tutorUsername {
+    border: solid 3px;
+}
+
+th, td {
+    border: 1px solid #000;
+    /* Add a border to table cells */
+    padding: 8px;
+    /* Add some padding for better appearance */
+}
+/* changeDetails.html*/
+.change-position{
+    margin-left: 15%;
+}
+.change-position p{
+    margin: 3px;
+}

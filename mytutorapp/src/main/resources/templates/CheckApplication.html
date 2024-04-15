@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Check Application</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/elementStyling.css}">
+</head>
+
+<body>
+    <h2 class="heading important"><u>Check Application</u></h2>
+    <br>
+    <div class="group" id="messages">
+        <span style="color:dodgerblue" id="results" th:text="${session.resultMessage}"></span>
+        <span style="color:red" id="error" th:text="${session.errorMessage}"></span>
+    </div>
+    
+    <section th:unless="${session.applicant_view == 'verify'}">
+        <form th:action="@{/applicant/check/application}" method="post">
+            <div>
+                <label for="submissionID">Username:</label>
+                <input type="text" id="submissionID" name="username" th:value="${username}" placeholder="student number" required />
+            </div>
+            <div>
+                <label for="applicationID">Application ID:</label>
+                <input type="number" id="applicationID" name="applicationID" th:value="${applicationID}" placeholder="0000" required />
+            </div>
+            <button type="submit">Check</button>
+        </form>
+    </section>
+    <fieldset th:if="${session.showOptions}">
+        <legend>Options</legend>
+        <button><a href="/applicant/get/details">Show My Application</a></button>
+        <button><a href="/applicant/upload/documents">Upload Documents</a></button>
+    </fieldset>
+    <div th:if="${session.applicant_view == 'register'}">
+        <!--<p style="text-align:center;">OTP was sent to the Email address: <span th:text="${sentToEmail}"></span>
+        </p>-->
+        <button><a href="/applicant/register/account">Register Account</a></button>
+    </div>
+    <section th:if="${session.applicant_view == 'details'}">
+        <h3 class="heading important"><u>Application Details </u></h3>
+        <div class="borderline">
+            <label>Application Details:</label>
+            <pre id="applicantDetails" name="applicantDetails" th:text="${applicantDetails}"></pre>
+        </div>
+    </section>
+    <section th:if="${session.applicant_view == 'upload'}">
+        <h3 class="heading important"><u>Uploading Documents</u></h3>
+        <form th:action="@{/applicant/upload/document}" method="post" enctype="multipart/form-data">
+            <div>
+                <label for="docType">Select Document:</label>
+                <!--<input type="text" id="title" name="docType" placeholder="" required/>-->
+                <select name="docType" required>
+                    <option value="transcript">Transcript</option>
+                    <option value="cv">Resume or CV</option>
+                    <option value="coverLetter">Cover Letter</option>
+                    <option value="proof">Proof of Registration</option>
+                    <option value="identityDoc">Identity Document</option>
+                    <option value="motivation">Motivational Letter</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div>
+                <label class="form-label" for="file">Upload document:</label><br>
+                <input type="file" id="file" name="document" accept=".txt,.jpg,.docx,.pdf" max="10485760" multiple>
+            </div>
+            <button class="btn" type="submit">Submit document</button>
+        </form>
+    </section>
+    <button><a href="/exit">Exit</a></button>
+</body>
+
+</html>
